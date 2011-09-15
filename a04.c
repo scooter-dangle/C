@@ -28,6 +28,7 @@ int main()
 	// lowercase vowels are at 97, 101, 105, 111, 117
 	// uppercase vowels are at 65, 69, 73, 79, 85
 	// numbers are at 48--57 and begin with 0
+	// minor change to check git push
 
 	// Display results based on set codes (switch-case)
 
