@@ -39,7 +39,7 @@ int main(int argc, const char *argv[])
 	double dub_rows;
 	dub_columns = (double)num_columns;
 	dub_rows = (double)num_rows;
-	min_column_width = floor(log10( dub_columns * dub_rows ));
+	min_column_width = floor((double)log10( dub_columns * dub_rows ));
 	// getting an error that says floor and log10 unrecognized!
 	// arg!!!
 	// It's because I'm trying to call them on an int argument.

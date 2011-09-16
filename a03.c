@@ -28,7 +28,7 @@ int main()
 	// display a table
 	printf( " Dec | Ascii | Address\n" );
 	for (i = 0; i < 5; i++)
-		printf( "%4d   %-5c   %-7x\n", charArray[i], charArray[i], &charArray[i] );
+		printf( "%4d   %-5c   %-7x\n", charArray[i], charArray[i], (unsigned short int)&charArray[i] );
 	// The compiler is giving a warning regarding the above line:
 	// "warning: format '%-7x' expects type 'unsigned int', but argument 4
 	// has type 'char *'"
