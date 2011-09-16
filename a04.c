@@ -27,7 +27,7 @@ int main()
 	while ( (extraChar = getchar()) != '\n' && extraChar != EOF );
 
 	// Analyze the keystroke (if, if-else, if-else-chain here)
-	if ( keyStroke > 127 ) subTypeCode = UPPER_ASCII;
+	if ( (keyStroke >= 128) || (keyStroke<0) ) subTypeCode = UPPER_ASCII;
 
 
 	if ( keyStroke >= 48 && keyStroke < 58 ) {

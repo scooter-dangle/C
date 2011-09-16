@@ -35,9 +35,17 @@ int main(int argc, const char *argv[])
 
 	// Any necessary pre-processing
 	double min_column_width;
-	min_column_width = floor(log10( num_columns * num_rows )) + 1;
+	double dub_columns;
+	double dub_rows;
+	dub_columns = (double)num_columns;
+	dub_rows = (double)num_rows;
+	min_column_width = floor(log10( dub_columns * dub_rows ));
 	// getting an error that says floor and log10 unrecognized!
 	// arg!!!
+	// It's because I'm trying to call them on an int argument.
+	// How do I turn those into doubles?
+	// min_column_width = floor(log10( 10 * 100 )) + 1;
+	printf( "%.0f", min_column_width );
 
 
 	// Output
