@@ -34,26 +34,29 @@ int main(int argc, const char *argv[])
 
 
 	// Any necessary pre-processing
-	double min_column_width;
-	double dub_columns;
-	double dub_rows;
-	dub_columns = (double)num_columns;
-	dub_rows = (double)num_rows;
-	min_column_width = floor((double)log10( dub_columns * dub_rows ));
-	// getting an error that says floor and log10 unrecognized!
-	// arg!!!
-	// It's because I'm trying to call them on an int argument.
-	// How do I turn those into doubles?
-	// min_column_width = floor(log10( 10 * 100 )) + 1;
-	printf( "%.0f", min_column_width );
+	int min_column_width;
+	min_column_width = floor(log10( num_columns * num_rows )) + 1;
+	int min_init_column_width;
+	min_init_column_width = floor(log10( num_rows )) + 1;
+
+		// getting an error that says floor and log10 unrecognized!
+		// arg!!!
+		// It's because I'm trying to call them on an int argument.
+		// How do I turn those into doubles?
+		// min_column_width = floor(log10( 10 * 100 )) + 1;
+	// It turned out it had nothing to do with the casting. It works ok
+	// if you add -lm to the end of the gcc command. Found on StackOverflow
+	// but don't understand why it works.  :(
 
 
 	// Output
 	// Header row
 	int i;
-	for (i = 0; i <= num_columns; i++) {
-		/* code */
+	printf( " %*c", min_init_column_width, ' ' );
+	for (i = 1; i <= num_columns; i++) {
+		printf( " %c %*d", fill_symbol_1, min_column_width, i );
 	}
+	printf("\n");
 	
 	// Body rows
 	int k;
