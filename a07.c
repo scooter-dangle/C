@@ -55,7 +55,40 @@ void InitializeBoard(char board[ROWS][COLS])
 
 void DisplayBoard(char board[ROWS][COLS])
 {
-	// Your Implementation Goes Here
+	void topRow()
+	{
+		printf("\tTICK ATTACKS TOE\n\n");
+		printf(" ");
+		for (int col = 1; col <= COLS; col++) {
+			printf(" %1d", col );
+		}
+		printf("\n\n");
+	}
+
+	void middleRow()
+	{
+		printf("  -");
+		for (int col = 2; col <= COLS; col++) {
+			printf("+-");
+		}
+		printf("\n");
+	}
+
+	void majorRow(char board[ROWS][COLS], int row)
+	{
+		printf("%d %c", row, board[row-1][0] );
+		for (int col = 2; col <= COLS; col++) {
+			printf("|%c", board[row-1][col - 1]);
+		}
+		printf("\n");
+	}
+
+	topRow();
+	majorRow(board, 1);
+	for (int row = 2; row <= ROWS; row++) {
+		middleRow();
+		majorRow( board, row );
+	}
 }
 
 int PlayerMove(int row, int col, char board[ROWS][COLS], char symbol)
