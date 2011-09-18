@@ -223,7 +223,4 @@ void DisplayVictoryMessage(int victoryCode)
 			printf("DisplayVictoryMessage() was passed an invalid victoryCode.\n");
 			break;
 	}
-
-
-
 }
