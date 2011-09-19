@@ -317,7 +317,7 @@ int VictoryCheck(int winRequirement, char board[ROWS][COLS])
 		return 0;
 	}
 
-	int arrayVictoryCheck(char array[][7], int rows, int winRequirement, char mark)
+	int arrayVictoryCheck(char array[][MIN], int rows, int winRequirement, char mark)
 	{
 		for (i = 0; i < rows; i++) {
 			if (lineVictoryCheck(array[i], sizeof(array[i]), winRequirement, mark) == 1) return 1;
