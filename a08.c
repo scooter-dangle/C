@@ -132,16 +132,27 @@ int main()
 
 	// Produce a tie
 	// initialize board
-	// InitializeBoard(board);
+	InitializeBoard(board);
 	// populate board
-	// for (int k = 0; k < COLS; ) {
-		/* code */
-		// k % 2 == 0 ? k+=1 : k += 3;
-	// }
+	for (int row = 0; row < ROWS; row++) {
+		int offset = (row % 2) * 2;
+		for (int col = offset; col < COLS; ) {
+			PlayerMove(row+1, col+1, board, MARKONE);
+			(col % 2) == 0 ? (col += 1) : (col += 3);
+		}
+	}
+
+	for (int row = 0; row < ROWS; row++) {
+		int offset = ((row+1) % 2) * 2;
+		for (int col = offset; col < COLS; ) {
+			PlayerMove(row+1, col+1, board, MARKTWO);
+			(col % 2) == 0 ? (col += 1) : (col += 3);
+		}
+	}
 	// display the board
-	// DisplayBoard(board);
+	DisplayBoard(board);
 	// display victory message
-	// DisplayVictoryMessage( VictoryCheck(CONSECUTIVE_MARKS_REQUIRED, board) );
+	DisplayVictoryMessage( VictoryCheck(CONSECUTIVE_MARKS_REQUIRED, board) );
 
 	// exit program
 	return 0;
@@ -243,7 +254,7 @@ int VictoryCheck(int winRequirement, char board[ROWS][COLS])
 	// Create 2 arrays to check for diagonal wins
 	char diagArray1[(ROWS + COLS - 1)*MIN];
 	char diagArray2[(ROWS + COLS - 1)*MIN];
-	// Can eventually use CONSECUTIVE_MARKS_REQUIRED to make diagonal-
+	// Could eventually use CONSECUTIVE_MARKS_REQUIRED to make diagonal-
 	// check arrays smaller.
 
 	// And then fill them with blanks.
