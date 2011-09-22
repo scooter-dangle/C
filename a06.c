@@ -24,11 +24,12 @@ int main(int argc, const char *argv[])
 	srand((unsigned int)time(NULL));
 
 	// roll the dice and keep track of what was rolled in the array
-	for (int i = 0; i < TRIALS; i++) numberArray[getTwoDieSum( LOWER_DIE, UPPER_DIE )]++;
+	int i;
+	for (i = 0; i < TRIALS; i++) numberArray[getTwoDieSum( LOWER_DIE, UPPER_DIE )]++;
 
 	// display results
 	printf( "Roll Value | Frequency\n" );
-	for (int i = 2 * LOWER_DIE; i <= 2 * UPPER_DIE; i++) {
+	for (i = 2 * LOWER_DIE; i <= 2 * UPPER_DIE; i++) {
 		printf( "%10d | %d\n", i, numberArray[i] );
 	}
 

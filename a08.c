@@ -16,7 +16,7 @@
 #define MIN COLS
 #endif
 
-#define TESTING 0
+#define TESTING 1
 
 #define MARKONE 'X'
 #define MARKTWO 'O'
@@ -134,17 +134,20 @@ int main()
 	// initialize board
 	InitializeBoard(board);
 	// populate board
-	for (int row = 0; row < ROWS; row++) {
+	int row;
+	for (row = 0; row < ROWS; row++) {
 		int offset = (row % 2) * 2;
-		for (int col = offset; col < COLS; ) {
+		int col;
+		for (col = offset; col < COLS; ) {
 			PlayerMove(row+1, col+1, board, MARKONE);
 			(col % 2) == 0 ? (col += 1) : (col += 3);
 		}
 	}
 
-	for (int row = 0; row < ROWS; row++) {
+	for (row = 0; row < ROWS; row++) {
 		int offset = ((row+1) % 2) * 2;
-		for (int col = offset; col < COLS; ) {
+		int col;
+		for (col = offset; col < COLS; ) {
 			PlayerMove(row+1, col+1, board, MARKTWO);
 			(col % 2) == 0 ? (col += 1) : (col += 3);
 		}
@@ -167,8 +170,10 @@ char* flat_char_matrix(char array[], int Rows, int Cols, int row, int col)
 
 void flatten_char_matrix(char matrix[ROWS][COLS], char array[], int Rows, int Cols)
 {
-	for (int i = 0; i < Rows; i++) {
-		for (int k = 0; k < Cols; k++) {
+	int i;
+	for (i = 0; i < Rows; i++) {
+		int k;
+		for (k = 0; k < Cols; k++) {
 			*flat_char_matrix(array, Rows, Cols, i, k) = matrix[i][k];
 		}
 	}
@@ -176,8 +181,10 @@ void flatten_char_matrix(char matrix[ROWS][COLS], char array[], int Rows, int Co
 
 void fill_char_matrix(char array[], char matrix[ROWS][COLS], int Rows, int Cols)
 {
-	for (int i = 0; i < Rows; i++) {
-		for (int k = 0; k < Cols; k++) {
+	int i;
+	for (i = 0; i < Rows; i++) {
+		int k;
+		for (k = 0; k < Cols; k++) {
 			matrix[i][k] = *flat_char_matrix(array, Rows, Cols, i, k);
 		}
 	}
@@ -185,9 +192,12 @@ void fill_char_matrix(char array[], char matrix[ROWS][COLS], int Rows, int Cols)
 
 void InitializeBoard(char board[ROWS][COLS])
 {
-	for (int i = 0; i < ROWS; i++)
-		for (int k = 0; k < COLS; k++)
+	int i;
+	for (i = 0; i < ROWS; i++) {
+		int k;
+		for (k = 0; k < COLS; k++)
 			board[i][k] = BLANK;
+	}
 }
 
 
@@ -197,7 +207,8 @@ void DisplayBoard(char board[ROWS][COLS])
 	void top() {
 		printf("\tTICK ATTACKS TOE\n\n");
 		printf(" ");
-		for (int col = 1; col <= COLS; col++) {
+		int col;
+		for (col = 1; col <= COLS; col++) {
 			printf(" %1d", col );
 		}
 		printf("\n\n");
@@ -205,7 +216,8 @@ void DisplayBoard(char board[ROWS][COLS])
 
 	void middleRow() {
 		printf("  -");
-		for (int col = 2; col <= COLS; col++) {
+		int col;
+		for (col = 2; col <= COLS; col++) {
 			printf("+-");
 		}
 		printf("\n");
@@ -213,7 +225,8 @@ void DisplayBoard(char board[ROWS][COLS])
 
 	void majorRow(char board[ROWS][COLS], int row) {
 		printf("%d %c", row, board[row-1][0] );
-		for (int col = 2; col <= COLS; col++) {
+		int col;
+		for (col = 2; col <= COLS; col++) {
 			printf("|%c", board[row-1][col - 1]);
 		}
 		printf("\n");
@@ -222,7 +235,8 @@ void DisplayBoard(char board[ROWS][COLS])
 	// The actual display
 	top();
 	majorRow(board, 1);
-	for (int row = 2; row <= ROWS; row++) {
+	int row;
+	for (row = 2; row <= ROWS; row++) {
 		middleRow();
 		majorRow( board, row );
 	}
@@ -258,8 +272,10 @@ int VictoryCheck(int winRequirement, char board[ROWS][COLS])
 	// check arrays smaller.
 
 	// And then fill them with blanks.
-	for (int i = 0; i < (ROWS + COLS - 1); i++) {
-		for (int k = 0; k < MIN; k++) {
+	int i;
+	for (i = 0; i < (ROWS + COLS - 1); i++) {
+		int k;
+		for (k = 0; k < MIN; k++) {
 			*flat_char_matrix(diagArray1, ROWS + COLS - 1, MIN, i, k ) = BLANK;
 			*flat_char_matrix(diagArray2, ROWS + COLS - 1, MIN, i, k ) = BLANK; 
 		}
@@ -267,34 +283,38 @@ int VictoryCheck(int winRequirement, char board[ROWS][COLS])
 
 	// Calculate diagArray1
 	// First set
-	for (int i = 0; i < ROWS; i++) {
-		for (int k = 0; (k <= i) && (k < COLS); k++) {
+	for (i = 0; i < ROWS; i++) {
+		int k;
+		for (k = 0; (k <= i) && (k < COLS); k++) {
 			*flat_char_matrix(diagArray1, ROWS + COLS - 1, MIN, i, k ) = board[i-k][k];
 		}
 	}
 	// Second set
-	for (int i = ROWS; i < (ROWS + COLS - 1); i++) {
+	for (i = ROWS; i < (ROWS + COLS - 1); i++) {
 		int jay = i - ROWS + 1;
-		for (int k = 0; (ROWS - k - 1 >= 0) && (k+jay < COLS); k++) {
+		int k;
+		for (k = 0; (ROWS - k - 1 >= 0) && (k+jay < COLS); k++) {
 			*flat_char_matrix(diagArray1, ROWS + COLS - 1, MIN, i, k ) = board[ROWS-k-1][k+jay];
 		}
 	}
 
 	// Calculate diagArray2
 	// First set
-	int i = 0;
-	for (int kay = COLS - 1; kay >= 0; kay--) {
+	int kay;
+	for (kay = COLS - 1; kay >= 0; kay--) {
 		int k = 0;
-		for (int eye = 0; kay + eye < COLS; eye++) {
+		int eye;
+		for (eye = 0; kay + eye < COLS; eye++) {
 			*flat_char_matrix(diagArray2, ROWS + COLS - 1, MIN, i, k ) = board[eye][kay + eye];
 			k++;
 		}
 		i++;
 	}
 	// Second set
-	for (int eye = 1; eye < ROWS; eye++) {
+	int eye;
+	for (eye = 1; eye < ROWS; eye++) {
 		int k = 0;
-		for (int kay = 0; kay+eye < ROWS; kay++) {
+		for (kay = 0; kay+eye < ROWS; kay++) {
 			*flat_char_matrix(diagArray2, ROWS + COLS - 1, MIN, i, k ) = board[kay + eye][kay];
 			k++;
 		}
@@ -303,7 +323,7 @@ int VictoryCheck(int winRequirement, char board[ROWS][COLS])
 
 #if TESTING
 	// print test of diagArray1
-	for (int i = 0; i < (ROWS + COLS - 1); i++) {
+	for (i = 0; i < (ROWS + COLS - 1); i++) {
 		for (int k = 0; k < MIN; k++) {
 			printf("%c ", *flat_char_matrix(diagArray1, ROWS + COLS - 1, MIN, i, k ) );
 		}
@@ -312,7 +332,7 @@ int VictoryCheck(int winRequirement, char board[ROWS][COLS])
 	printf("\n");
 
 	// print test of diagArray2
-	for (int i = 0; i < (ROWS + COLS - 1); i++) {
+	for (i = 0; i < (ROWS + COLS - 1); i++) {
 		for (int k = 0; k < MIN; k++) {
 			printf("%c ", *flat_char_matrix(diagArray2, ROWS + COLS - 1, MIN, i, k ) );
 		}
@@ -325,13 +345,13 @@ int VictoryCheck(int winRequirement, char board[ROWS][COLS])
 	char verticalArray[COLS*ROWS];
 
 	// Fill it with a transposed version of main board
-	for (int i = 0; i < COLS; i++)
+	for (i = 0; i < COLS; i++)
 		for (int k = 0; k < ROWS; k++)
 			*flat_char_matrix(verticalArray, COLS, ROWS, i, k ) = board[k][i];
 
 #if TESTING
 	// print test of verticalArray
-	for (int i = 0; i < COLS; i++) {
+	for (i = 0; i < COLS; i++) {
 		for (int k = 0; k < ROWS; k++) {
 			printf("%c ", *flat_char_matrix(verticalArray, COLS, ROWS, i, k ) );
 		}
