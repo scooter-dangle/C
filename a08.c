@@ -16,7 +16,7 @@
 #define MIN COLS
 #endif
 
-#define TESTING 1
+#define TESTING 0
 
 #define MARKONE 'X'
 #define MARKTWO 'O'
@@ -163,13 +163,11 @@ int main()
 
 
 // Function Implementations
-char* flat_char_matrix(char array[], int Rows, int Cols, int row, int col)
-{
+char* flat_char_matrix(char array[], int Rows, int Cols, int row, int col) {
 	return &array[ row*Cols + col ];
 }
 
-void flatten_char_matrix(char matrix[ROWS][COLS], char array[], int Rows, int Cols)
-{
+void flatten_char_matrix(char matrix[ROWS][COLS], char array[], int Rows, int Cols) {
 	int i;
 	for (i = 0; i < Rows; i++) {
 		int k;
@@ -179,8 +177,7 @@ void flatten_char_matrix(char matrix[ROWS][COLS], char array[], int Rows, int Co
 	}
 }
 
-void fill_char_matrix(char array[], char matrix[ROWS][COLS], int Rows, int Cols)
-{
+void fill_char_matrix(char array[], char matrix[ROWS][COLS], int Rows, int Cols) {
 	int i;
 	for (i = 0; i < Rows; i++) {
 		int k;
@@ -190,8 +187,7 @@ void fill_char_matrix(char array[], char matrix[ROWS][COLS], int Rows, int Cols)
 	}
 }
 
-void InitializeBoard(char board[ROWS][COLS])
-{
+void InitializeBoard(char board[ROWS][COLS]) {
 	int i;
 	for (i = 0; i < ROWS; i++) {
 		int k;
@@ -201,8 +197,7 @@ void InitializeBoard(char board[ROWS][COLS])
 }
 
 
-void DisplayBoard(char board[ROWS][COLS])
-{
+void DisplayBoard(char board[ROWS][COLS]) {
 	// Display function components
 	void top() {
 		printf("\tTICK ATTACKS TOE\n\n");
@@ -243,8 +238,7 @@ void DisplayBoard(char board[ROWS][COLS])
 }
 
 
-int PlayerMove(int row, int col, char board[ROWS][COLS], char symbol)
-{
+int PlayerMove(int row, int col, char board[ROWS][COLS], char symbol) {
 	// Check for move legality
 	if ((row>0 && row<=ROWS) && (col>0 && col<=COLS)) {
 		if (board[row-1][col-1] == BLANK) {
@@ -263,8 +257,7 @@ int PlayerMove(int row, int col, char board[ROWS][COLS], char symbol)
 }
 
 
-int VictoryCheck(int winRequirement, char board[ROWS][COLS])
-{
+int VictoryCheck(int winRequirement, char board[ROWS][COLS]) {
 	// Create 2 arrays to check for diagonal wins
 	char diagArray1[(ROWS + COLS - 1)*MIN];
 	char diagArray2[(ROWS + COLS - 1)*MIN];
@@ -374,8 +367,7 @@ int VictoryCheck(int winRequirement, char board[ROWS][COLS])
 		return 0;
 	}
 
-	int arrayVictoryCheck(char array[], int Rows, int Cols, int winRequirement, char mark)
-	{
+	int arrayVictoryCheck(char array[], int Rows, int Cols, int winRequirement, char mark) {
 		for (int row = 0; row < Rows; row++) {
 			if (lineVictoryCheck(array, Rows, Cols, row,  winRequirement, mark) == 1) return 1;
 		}
@@ -433,8 +425,7 @@ int VictoryCheck(int winRequirement, char board[ROWS][COLS])
 }
 
 
-void DisplayVictoryMessage(int victoryCode)
-{
+void DisplayVictoryMessage(int victoryCode) {
 	// display the victory condition results
 	switch(victoryCode) {
 		case NOWIN:

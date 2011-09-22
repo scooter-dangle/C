@@ -46,8 +46,7 @@ int main()
 
 
 // Function Implementations
-void InitializeBoard(char board[ROWS][COLS])
-{
+void InitializeBoard(char board[ROWS][COLS]) {
 	int i;
 	for (i = 0; i < ROWS; i++) {
 		int k;
@@ -56,10 +55,8 @@ void InitializeBoard(char board[ROWS][COLS])
 	}
 }
 
-void DisplayBoard(char board[ROWS][COLS])
-{
-	void topRow()
-	{
+void DisplayBoard(char board[ROWS][COLS]) {
+	void topRow() {
 		printf("\tTICK ATTACKS TOE\n\n");
 		printf(" ");
 		int col;
@@ -69,8 +66,7 @@ void DisplayBoard(char board[ROWS][COLS])
 		printf("\n\n");
 	}
 
-	void middleRow()
-	{
+	void middleRow() {
 		printf("  -");
 		int col;
 		for (col = 2; col <= COLS; col++) {
@@ -79,8 +75,7 @@ void DisplayBoard(char board[ROWS][COLS])
 		printf("\n");
 	}
 
-	void majorRow(char board[ROWS][COLS], int row)
-	{
+	void majorRow(char board[ROWS][COLS], int row) {
 		printf("%d %c", row, board[row-1][0] );
 		int col;
 		for (col = 2; col <= COLS; col++) {
@@ -98,8 +93,7 @@ void DisplayBoard(char board[ROWS][COLS])
 	}
 }
 
-int PlayerMove(int row, int col, char board[ROWS][COLS], char symbol)
-{
+int PlayerMove(int row, int col, char board[ROWS][COLS], char symbol) {
 	// Check for move legality
 	if ((row>0 && row<=ROWS) && (col>0 && col<=COLS)) {
 		if (board[row-1][col-1] == BLANK) {
