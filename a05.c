@@ -11,25 +11,34 @@ void flush()
 
 int main(int argc, const char *argv[])
 {
+	int num_columns;
+	int num_rows;
+	int min_column_width;
+	int min_init_column_width;
+	int border_string_length;
+	int a;
+	int i;
+	int k;
 	// User input
 	// fill symbols
 	char fill_symbol_1;
+	char fill_symbol_2;
+	char space_string_1[2] = " ";
+	char space_string_2[2] = " ";
+	char border_string[ 10 ];
 	printf( "Please enter the first fill symbol and press Enter: " );
 	scanf ( "%c", &fill_symbol_1 );
 	flush ();
 
-	char fill_symbol_2;
 	printf( "Please enter the second fill symbol and press Enter: " );
 	scanf ( "%c", &fill_symbol_2 );
 	flush ();
 
 	// columns & rows
-	int num_columns;
 	printf( "Please enter the number of columns: " );
 	scanf ( "%d", &num_columns );
 	flush ();
 
-	int num_rows;
 	printf( "Please enter the number of rows: " );
 	scanf ( "%d", &num_rows );
 	flush ();
@@ -37,9 +46,7 @@ int main(int argc, const char *argv[])
 
 	// Any necessary pre-processing
 	// Widths based on table entry with maximum number of digits
-	int min_column_width;
 	min_column_width = floor(log10( num_columns * num_rows )) + 1;
-	int min_init_column_width;
 	min_init_column_width = floor(log10( num_rows )) + 1;
 		// getting an error that says floor and log10 unrecognized!
 		// arg!!!
@@ -51,9 +58,7 @@ int main(int argc, const char *argv[])
 	// but don't understand why it works.  :(
 
 	// Initial definition of strings/lengths before extra spacing calcs
-	char space_string_1[2] = " ";
-	char space_string_2[2] = " ";
-	int border_string_length = min_column_width + 2;
+	border_string_length = min_column_width + 2;
 	// Determine whether spacing should be reduced
 	if ( ((1+min_init_column_width+1) +
 				(1+1+min_column_width+1)*num_columns) > 80 ) {
@@ -75,8 +80,6 @@ int main(int argc, const char *argv[])
 	}
 
 	// Declaration of header row's lower border string here
-	char border_string[ border_string_length + 1 ];
-	int a;
 	for (a = 0; a < border_string_length; a++) {
 		border_string[a] = fill_symbol_2;
 	}
@@ -87,7 +90,6 @@ int main(int argc, const char *argv[])
 
 	// Output
 	// Header row
-	int i;
 	printf( "%s%*c%s", space_string_1, min_init_column_width, ' ', space_string_2 );
 	for (i = 1; i <= num_columns; i++) {
 		printf( "%c%s%*d%s", fill_symbol_1, space_string_1, min_column_width, i, space_string_2 );
@@ -102,7 +104,6 @@ int main(int argc, const char *argv[])
 	printf("\n");
 
 	// Body rows
-	int k;
 	for (i = 1; i <= num_rows; i++) {
 		printf( "%s%*d%s", space_string_1, min_init_column_width, i, space_string_2 );
 		for (k = 1; k <= num_columns; k++) {
