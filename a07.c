@@ -56,10 +56,11 @@ void InitializeBoard(char board[ROWS][COLS]) {
 }
 
 void DisplayBoard(char board[ROWS][COLS]) {
+	int row;
 	void topRow() {
+		int col;
 		printf("\tTICK ATTACKS TOE\n\n");
 		printf(" ");
-		int col;
 		for (col = 1; col <= COLS; col++) {
 			printf(" %1d", col );
 		}
@@ -67,8 +68,8 @@ void DisplayBoard(char board[ROWS][COLS]) {
 	}
 
 	void middleRow() {
-		printf("  -");
 		int col;
+		printf("  -");
 		for (col = 2; col <= COLS; col++) {
 			printf("+-");
 		}
@@ -76,8 +77,8 @@ void DisplayBoard(char board[ROWS][COLS]) {
 	}
 
 	void majorRow(char board[ROWS][COLS], int row) {
-		printf("%d %c", row, board[row-1][0] );
 		int col;
+		printf("%d %c", row, board[row-1][0] );
 		for (col = 2; col <= COLS; col++) {
 			printf("|%c", board[row-1][col - 1]);
 		}
@@ -86,7 +87,6 @@ void DisplayBoard(char board[ROWS][COLS]) {
 
 	topRow();
 	majorRow(board, 1);
-	int row;
 	for (row = 2; row <= ROWS; row++) {
 		middleRow();
 		majorRow( board, row );

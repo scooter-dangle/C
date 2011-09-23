@@ -16,7 +16,7 @@
 #define MIN COLS
 #endif
 
-#define TESTING 0
+#define TESTING 1
 
 #define MARKONE 'X'
 #define MARKTWO 'O'
@@ -198,6 +198,7 @@ void InitializeBoard(char board[ROWS][COLS]) {
 
 
 void DisplayBoard(char board[ROWS][COLS]) {
+	int row;
 	// Display function components
 	void top() {
 		printf("\tTICK ATTACKS TOE\n\n");
@@ -230,7 +231,6 @@ void DisplayBoard(char board[ROWS][COLS]) {
 	// The actual display
 	top();
 	majorRow(board, 1);
-	int row;
 	for (row = 2; row <= ROWS; row++) {
 		middleRow();
 		majorRow( board, row );
@@ -261,11 +261,17 @@ int VictoryCheck(int winRequirement, char board[ROWS][COLS]) {
 	// Create 2 arrays to check for diagonal wins
 	char diagArray1[(ROWS + COLS - 1)*MIN];
 	char diagArray2[(ROWS + COLS - 1)*MIN];
+	char verticalArray[COLS*ROWS];
+	char flat_board[ROWS*COLS];
 	// Could eventually use CONSECUTIVE_MARKS_REQUIRED to make diagonal-
 	// check arrays smaller.
 
 	// And then fill them with blanks.
 	int i;
+	int kay;
+	int eye;
+	int markOneScore, markTwoScore;
+	int victoryCode = EPIC_FAIL;
 	for (i = 0; i < (ROWS + COLS - 1); i++) {
 		int k;
 		for (k = 0; k < MIN; k++) {
@@ -293,7 +299,7 @@ int VictoryCheck(int winRequirement, char board[ROWS][COLS]) {
 
 	// Calculate diagArray2
 	// First set
-	int kay;
+	i = 0;
 	for (kay = COLS - 1; kay >= 0; kay--) {
 		int k = 0;
 		int eye;
@@ -304,7 +310,6 @@ int VictoryCheck(int winRequirement, char board[ROWS][COLS]) {
 		i++;
 	}
 	// Second set
-	int eye;
 	for (eye = 1; eye < ROWS; eye++) {
 		int k = 0;
 		for (kay = 0; kay+eye < ROWS; kay++) {
@@ -317,7 +322,8 @@ int VictoryCheck(int winRequirement, char board[ROWS][COLS]) {
 #if TESTING
 	// print test of diagArray1
 	for (i = 0; i < (ROWS + COLS - 1); i++) {
-		for (int k = 0; k < MIN; k++) {
+		int k;
+		for (k = 0; k < MIN; k++) {
 			printf("%c ", *flat_char_matrix(diagArray1, ROWS + COLS - 1, MIN, i, k ) );
 		}
 		printf("\n");
@@ -326,7 +332,8 @@ int VictoryCheck(int winRequirement, char board[ROWS][COLS]) {
 
 	// print test of diagArray2
 	for (i = 0; i < (ROWS + COLS - 1); i++) {
-		for (int k = 0; k < MIN; k++) {
+		int k;
+		for (k = 0; k < MIN; k++) {
 			printf("%c ", *flat_char_matrix(diagArray2, ROWS + COLS - 1, MIN, i, k ) );
 		}
 		printf("\n");
@@ -335,17 +342,19 @@ int VictoryCheck(int winRequirement, char board[ROWS][COLS]) {
 #endif
 
 	// Create an array to check for vertical wins
-	char verticalArray[COLS*ROWS];
 
 	// Fill it with a transposed version of main board
-	for (i = 0; i < COLS; i++)
-		for (int k = 0; k < ROWS; k++)
+	for (i = 0; i < COLS; i++) {
+		int k;
+		for (k = 0; k < ROWS; k++)
 			*flat_char_matrix(verticalArray, COLS, ROWS, i, k ) = board[k][i];
+	}
 
 #if TESTING
 	// print test of verticalArray
 	for (i = 0; i < COLS; i++) {
-		for (int k = 0; k < ROWS; k++) {
+		int k;
+		for (k = 0; k < ROWS; k++) {
 			printf("%c ", *flat_char_matrix(verticalArray, COLS, ROWS, i, k ) );
 		}
 		printf("\n");
@@ -355,7 +364,8 @@ int VictoryCheck(int winRequirement, char board[ROWS][COLS]) {
 
 	int lineVictoryCheck(char array[], int Rows, int Cols, int row, int winRequirement, char mark) {
 		int ticker = 0;
-		for (int col = 0; col < Cols; col++) {
+		int col;
+		for (col = 0; col < Cols; col++) {
 			if (*flat_char_matrix(array, Rows, Cols, row, col)==mark) {
 				++ticker;
 			}
@@ -368,16 +378,15 @@ int VictoryCheck(int winRequirement, char board[ROWS][COLS]) {
 	}
 
 	int arrayVictoryCheck(char array[], int Rows, int Cols, int winRequirement, char mark) {
-		for (int row = 0; row < Rows; row++) {
+		int row;
+		for (row = 0; row < Rows; row++) {
 			if (lineVictoryCheck(array, Rows, Cols, row,  winRequirement, mark) == 1) return 1;
 		}
 		return 0;
 	}
 	// Your Implementation Goes Here
-	int markOneScore, markTwoScore;
 	markOneScore = 0;
 	markTwoScore = 0;
-	char flat_board[ROWS*COLS];
 	flatten_char_matrix(board, flat_board, ROWS, COLS);
 
 	markOneScore += arrayVictoryCheck(flat_board, ROWS, COLS, CONSECUTIVE_MARKS_REQUIRED, MARKONE);
@@ -389,9 +398,9 @@ int VictoryCheck(int winRequirement, char board[ROWS][COLS]) {
 	markTwoScore += arrayVictoryCheck(diagArray1, ROWS + COLS -1, MIN, CONSECUTIVE_MARKS_REQUIRED, MARKTWO);
 	markTwoScore += arrayVictoryCheck(diagArray2, ROWS + COLS -1, MIN, CONSECUTIVE_MARKS_REQUIRED, MARKTWO);
 
-	int victoryCode = EPIC_FAIL;
-	for (int i = 0; i < ROWS; i++) {
-		for (int k = 0; k < COLS; k++) {
+	for (i = 0; i < ROWS; i++) {
+		int k;
+		for (k = 0; k < COLS; k++) {
 			if (board[i][k]==BLANK) {
 				victoryCode=NOWIN;
 				k=COLS;
