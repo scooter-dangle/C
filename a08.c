@@ -16,7 +16,7 @@
 #define MIN COLS
 #endif
 
-#define TESTING 1
+#define TESTING 0
 
 #define MARKONE 'X'
 #define MARKTWO 'O'
