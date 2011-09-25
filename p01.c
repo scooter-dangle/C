@@ -18,9 +18,10 @@ int main(int argc, const char *argv[])
 	int aPts, bPts, cPts, dPts;		// qjq
 	float aPercent, bPercent, cPercent, dPercent;		// qjq
 	int min_a, min_b, min_c, min_d;		// qjq
+	int guidance_code_max, guidance_code_min;	// qjq
 	// Getting all the inputs
 	printf( "CIS 111 Grade Calculator\n"                                      );
-	printf( "========================\n"                                      );
+	printf( "========================\n\n"                                    );
 	printf( "Instructions\nPlease enter your grade (in points) after each "   );
 	printf( "prompt and press the enter key.\n\n"                             );
 
@@ -66,10 +67,37 @@ int main(int argc, const char *argv[])
 	cPercent = 100 * cPts / (float) final_exam;
 	dPercent = 100 * dPts / (float) final_exam;
 
+	guidance_code_max = -1;
+	guidance_code_min = -1;
+	if (aPts <= 0) {
+		guidance_code_max = 0;
+		guidance_code_min = 0;
+	}
+	else {
+	if (aPts <  final_exam) guidance_code_max = 1;
+	else {
+	if (aPts == final_exam) guidance_code_max = 2;
+	else {
+	if (bPts <  final_exam) guidance_code_max = 3;
+	else {
+	if (bPts == final_exam) guidance_code_max = 4;
+	else {
+	if (cPts <  final_exam) guidance_code_max = 5;
+	else {
+	if (cPts == final_exam) guidance_code_max = 6;
+	else {
+	if (dPts <  final_exam) guidance_code_max = 7;
+	else {
+	if (dPts == final_exam) guidance_code_max = 8;
+	else {
+		guidance_code_max = 9;
+	}}}}}}}}}
+
 	// Output
 	printf( "                             Total Points So Far: %i", sub_total );
 	printf( "\n\n\n" );
 
+	printf("DETAILED OUTPUT\n"                                                );
 	printf("Minimum final exam scores needed to earn each course grade\n"     );
 	printf("----------------------------------------------------------\n"     );
 	printf(" Course Grade   :   Points Needed   :   Percentage Needed\n"      );
@@ -82,6 +110,27 @@ int main(int argc, const char *argv[])
 	printf("Any score below %i points (%.2f%%) on the final",   dPts, dPercent);
 	printf(" exam will result in a\nfailing grade for the course.\n\n"        );
 	printf("NOTE: The Final Exam is worth %i points.\n", final_exam           );
+
+	printf( "\n\n" );
+
+	printf("GUIDANCE\n\n"                                                     );
+
+	switch(guidance_code_max) {
+		case 0:
+			printf("Dude, you can get an A without taking the test! (Don't "  );
+			printf("tell Mark I told you, k?)\n"                             );
+			break;
+		default:
+			break;
+	}
+
+	switch(guidance_code_min) {
+		case 0:
+			break;
+		default:
+			if (guidance_code_max = -1) printf("No guidance available, please contact the lazy programmer who wrote this to\nclaim your refund.\n");
+			break;
+	}
 
 	return 0;
 }
