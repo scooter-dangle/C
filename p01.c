@@ -8,32 +8,38 @@ void flush();
 int main(int argc, const char *argv[])
 {
 	// Variable declarations (damn you, MSVS! damn you and your non-c99-ness!)
+	int prog_assign_1;	// qjq
+	int prog_assign_2;	// qjq
+	int prog_assign_3;	// qjq
+	int mid_term;	// qjq
+	int attendance_and_participation;	// qjq
+	int sub_total;	// qjq
+	int final_exam;	// qjq
+	int aPts, bPts, cPts, dPts;		// qjq
+	float aPercent, bPercent, cPercent, dPercent;		// qjq
+	int min_a, min_b, min_c, min_d;		// qjq
 	// Getting all the inputs
 	printf( "CIS 111 Grade Calculator\n"                                      );
 	printf( "========================\n"                                      );
 	printf( "Instructions\nPlease enter your grade (in points) after each "   );
 	printf( "prompt and press the enter key.\n\n"                             );
-	int prog_assign_1;	// qjq
+
 	printf( "Programming Assignment No. 1 (200 point maximum): "              );
 	scanf ( "%i", &prog_assign_1 );
 	flush ();
 
-	int prog_assign_2;	// qjq
 	printf( "Programming Assignment No. 2 (200 point maximum): "              );
 	scanf ( "%i", &prog_assign_2 );
 	flush ();
 
-	int prog_assign_3;	// qjq
 	printf( "Programming Assignment No. 3 (200 point maximum): "              );
 	scanf ( "%i", &prog_assign_3 );
 	flush ();
 
-	int mid_term;	// qjq
 	printf( "               Mid-term exam (150 point maximum): "              );
 	scanf ( "%i", &mid_term );
 	flush ();
 
-	int attendance_and_participation;	// qjq
 	printf( "    Attendance/Participation (100 point maximum): "              );
 	scanf ( "%i", &attendance_and_participation );
 	flush ();
@@ -41,16 +47,9 @@ int main(int argc, const char *argv[])
 	printf( "\n" );
 
 	// Calcurlashins
-	int sub_total;	// qjq
 	sub_total = prog_assign_1 + prog_assign_2 + prog_assign_3 + mid_term + attendance_and_participation;
 
-	int final_exam;	// qjq
 	final_exam = 150;
-
-	int aPts, bPts, cPts, dPts;		// qjq
-	float aPercent, bPercent, cPercent, dPercent;		// qjq
-
-	int min_a, min_b, min_c, min_d;		// qjq
 
 	min_a = 900;
 	min_b = 800;
