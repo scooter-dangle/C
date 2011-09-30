@@ -57,21 +57,21 @@ int main()
 
 // Function implementations
 char numToLetter(int number) {
-	char letter = number + 97;
+	char letter = number + ASCII_OFFSET;
 	return letter;
 }
 
 int letterToNum(char letter) {
-	int number = letter - 97;
+	int number = letter - ASCII_OFFSET;
 	return number;
 }
 
 int EncryptString(char* encryptMe, int a, int b, int n) {
-	if (!CoprimeTest(a, b)) {
+	if (!CoprimeTest(a, n)) {
 		return FALSE;
 	}
 	int i;
-	for (i = 0; encryptMe[i] >= 97 && encryptMe[i] < 123; i++) {
+	for (i = 0; encryptMe[i] >= ASCII_OFFSET && encryptMe[i] < ASCII_OFFSET + ALPHABET_SIZE; i++) {
 		int number = letterToNum(encryptMe[i]);
 		number = ((number*a) + b) % n;
 		while(number<0) number = (number + n) % n; // not really necessary
@@ -90,12 +90,12 @@ int EncryptString(char* encryptMe, int a, int b, int n) {
 
 
 int DecryptString(char* decryptMe, int a, int b, int n) {
-	if (!CoprimeTest(a, b)) {
+	if (!CoprimeTest(a, n)) {
 		return FALSE;
 	}
 	int i;
 	int a_inv = ModularInverse(a, n);
-	for (i = 0; decryptMe[i] >= 97 && decryptMe[i] < 123; i++) {
+	for (i = 0; decryptMe[i] >= ASCII_OFFSET && decryptMe[i] < ASCII_OFFSET + ALPHABET_SIZE; i++) {
 		int number = letterToNum(decryptMe[i]);
 		number = (a_inv * (number-b)) % n;
 		while(number<0) number = (number + n) % n; // not really necessary
@@ -114,8 +114,13 @@ int DecryptString(char* decryptMe, int a, int b, int n) {
 
 
 int ModularInverse(int target, int mod) {
-	int remainder[3];		// Started based on wikipedia pseudocode
-	int auxiliary[3] = { 0, 1 };
+	int i;
+	for (i = 1; i < mod; i++) {
+		if (i * target % mod == 1) {
+			target = i;
+			i = mod;
+		}
+	}
 	return target;
 }
 
@@ -126,5 +131,13 @@ int IsPrime(int amIPrime) {
 
 
 int CoprimeTest(int numOne, int numTwo) {
-	return TRUE;
+	// got the following from en.literateprograms.org
+	int em;
+	while (numTwo != 0) {
+		em = numOne % numTwo;
+		numOne = numTwo;
+		numTwo = em;
+	}
+	if (numOne == 1) return TRUE;
+	return FALSE;
 }
