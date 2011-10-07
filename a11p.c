@@ -60,10 +60,10 @@ int WriteStringToFile(char* path, char* string) {
 		fprintf(stderr, "WriteStringToFile was unable to open the file %s.\n", path);
 		return FALSE;
 	}
-	if (strlen(string) == 0) {
-		fprintf(stderr, "WriteStringToFile was passed an empty string. Nothing will be\nwritten to %s.", path);
-		return FALSE;
-	}
+	// if (strlen(string) == 0) {
+		// fprintf(stderr, "WriteStringToFile was passed an empty string. Nothing will be\nwritten to %s.", path);
+		// return FALSE;
+	// }
 	if (fprintf(stream, "%s\n", string) == strlen(string) + 1) {
 		fclose(stream);
 		return TRUE;
