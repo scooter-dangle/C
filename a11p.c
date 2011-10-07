@@ -36,7 +36,7 @@ int ReadStringFromFile(char* path, char* string) {
 	stream = NULL;
 	stream = fopen(path, "r");
 	if (stream == NULL) {
-		fprintf(stderr, "ReadStringFromFile was unable to open the file %s for reading.\n", path);
+		fprintf(stderr, "ReadStringFromFile was unable to open and/or read from the file %s.\n", path);
 		return FALSE;
 	}
 	for (i = 0; i < BUFFER_SIZE; i++) {
@@ -48,7 +48,7 @@ int ReadStringFromFile(char* path, char* string) {
 	}
 	string[i-1] = '\0';
 	fclose(stream);
-	fprintf(stderr, "The input file size exceeded %i bytes, the maximum accepted\nfile size. Some of the input file may not be processed.", BUFFER_SIZE);
+	fprintf(stderr, "The input file size exceeded %i bytes, the maximum accepted\nfile size. Some of the input file may not be processed.\n", BUFFER_SIZE);
 	return FALSE;
 }
 
@@ -57,14 +57,18 @@ int WriteStringToFile(char* path, char* string) {
 	stream = NULL;
 	stream = fopen(path, "w");
 	if (stream == NULL) {
-		fprintf(stderr, "WriteStringToFile was unable to open the file %s for reading.\n", path);
+		fprintf(stderr, "WriteStringToFile was unable to open the file %s.\n", path);
+		return FALSE;
+	}
+	if (strlen(string) == 0) {
+		fprintf(stderr, "WriteStringToFile was passed an empty string. Nothing will be\nwritten to %s.", path);
 		return FALSE;
 	}
 	if (fprintf(stream, "%s\n", string) == strlen(string) + 1) {
 		fclose(stream);
 		return TRUE;
 	} else {
-		fprintf(stderr, "The entire cleaned string was not written to the output file. Ensure that\nyou have adequate permissions to write/create a file and the target medium has\nsufficient space for this write (estimated to be %i bytes).", (int) strlen(string));
+		fprintf(stderr, "The entire cleaned string was not written to the output file. Ensure that\nyou have adequate permissions to write/create a file and the target medium has\nsufficient space for this write (estimated to be %i bytes).\n", (int) strlen(string));
 		return FALSE;
 	}
 }
@@ -85,4 +89,3 @@ int CleanString(char* string) {
 	fprintf(stderr, "CleanString scanned through %i bytes without finding a null character.\nThe input string should be terminated by a null character.", BUFFER_SIZE);
 	return FALSE;
 }
-
