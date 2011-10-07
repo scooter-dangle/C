@@ -33,7 +33,12 @@ int main(int argc, const char *argv[])
 int ReadStringFromFile(char* path, char* string) {
 	FILE *stream;
 	int i;
+	stream = NULL;
 	stream = fopen(path, "r");
+	if (stream == NULL) {
+		fprintf(stderr, "ReadStringFromFile was unable to open the file %s for reading.\n", path);
+		return FALSE;
+	}
 	for (i = 0; i < BUFFER_SIZE; i++) {
 		if (((string[i] = getc(stream)) == EOF) || (string[i] == '\0')) {
 			string[i] = '\0';
@@ -49,10 +54,19 @@ int ReadStringFromFile(char* path, char* string) {
 
 int WriteStringToFile(char* path, char* string) {
 	FILE *stream;
+	stream = NULL;
 	stream = fopen(path, "w");
-	fprintf(stream, "%s\n", string);
-	fclose(stream);
-	return TRUE;
+	if (stream == NULL) {
+		fprintf(stderr, "WriteStringToFile was unable to open the file %s for reading.\n", path);
+		return FALSE;
+	}
+	if (fprintf(stream, "%s\n", string) == strlen(string) + 1) {
+		fclose(stream);
+		return TRUE;
+	} else {
+		fprintf(stderr, "The entire cleaned string was not written to the output file. Ensure that\nyou have adequate permissions to write/create a file and the target medium has\nsufficient space for this write (estimated to be %i bytes).", (int) strlen(string));
+		return FALSE;
+	}
 }
 
 int CleanString(char* string) {
@@ -68,7 +82,7 @@ int CleanString(char* string) {
 			return TRUE;
 		}
 	}
-	fprintf(stderr, "CleanString scanned through %i bytes without finding a null character.\nThe input string should be terminated by a null character", BUFFER_SIZE);
+	fprintf(stderr, "CleanString scanned through %i bytes without finding a null character.\nThe input string should be terminated by a null character.", BUFFER_SIZE);
 	return FALSE;
 }
 
