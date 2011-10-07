@@ -29,3 +29,46 @@ int main(int argc, const char *argv[])
 
 	return 0;
 }
+
+int ReadStringFromFile(char* path, char* string) {
+	FILE *stream;
+	int i;
+	stream = fopen(path, "r");
+	for (i = 0; i < BUFFER_SIZE; i++) {
+		if (((string[i] = getc(stream)) == EOF) || (string[i] == '\0')) {
+			string[i] = '\0';
+			fclose(stream);
+			return TRUE;
+		}
+	}
+	string[i-1] = '\0';
+	fclose(stream);
+	fprintf(stderr, "The input file size exceeded %i bytes, the maximum accepted\nfile size. Some of the input file may not be processed.", BUFFER_SIZE);
+	return FALSE;
+}
+
+int WriteStringToFile(char* path, char* string) {
+	FILE *stream;
+	stream = fopen(path, "w");
+	fprintf(stream, "%s\n", string);
+	fclose(stream);
+	return TRUE;
+}
+
+int CleanString(char* string) {
+	int i, k;
+	k = 0;
+	for (i = 0; i < BUFFER_SIZE; i++) {
+		if (string[i] >= 97 && string[i] < 123) {
+			string[k++] = string[i];
+		} else if (string[i] >= 65 && string[i] < 91) {
+			string[k++] = string[i] + ASCII_UPPER_LOWER_OFFSET;
+		} else if (string[i] == '\0') {
+			string[k] = '\0';
+			return TRUE;
+		}
+	}
+	fprintf(stderr, "CleanString scanned through %i bytes without finding a null character.\nThe input string should be terminated by a null character", BUFFER_SIZE);
+	return FALSE;
+}
+
