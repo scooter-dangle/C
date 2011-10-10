@@ -18,7 +18,7 @@ void calculateCheck(char*);
 int formatting_length(int,int,char,float);
 float zero_catch(float);
 int print_result(int,int,char,float);
-int run_again();
+int run_again_query();
 
 int main()
 {
@@ -54,7 +54,7 @@ int main()
 	}
 
 	// Option to run program again
-	status = run_again();
+	status = run_again_query();
 	if (status != 0) { return exit_prog(); }
 
 	main();
@@ -296,7 +296,7 @@ int print_result(int operand1, int operand2, char operator, float result)
 	}
 }
 
-int run_again()
+int run_again_query()
 {
 	char status;
 	printf("\n"                                                               );
