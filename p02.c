@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
 #define MIN_INPUT -1000
 #define MAX_INPUT 1000
 
@@ -16,6 +15,7 @@ void nonStandardInput();
 int calculate(float, float, char, float*);
 void calculateCheck(char*);
 int formatting_length(int,int,char,float);
+int negative_sign_check(float);    // Have to define manually since MS doesn't follow C99
 float zero_catch(float);
 int print_result(int,int,char,float);
 int run_again_query();
@@ -246,9 +246,9 @@ int formatting_length(int operand1, int operand2, char operator, float result)
 		case 'S':
 		case 'M':
 		case 'O':
-			return 6 + floor(log10(abs(zero_catch((float) operand1))) + 1) + floor(log10(abs(zero_catch((float) operand2))) + 1) + floor(log10(abs(zero_catch(result))) + 1) + ((int) (-copysign(0.5, operand1) + 0.5)) + ((int) (-copysign(0.5, operand2) + 0.5)) + ((int) (-copysign(0.5, result) + 0.5));
+			return 6 + floor(log10(abs(zero_catch((float) operand1))) + 1) + floor(log10(abs(zero_catch((float) operand2))) + 1) + floor(log10(abs(zero_catch(result))) + 1) + negative_sign_check((float) operand1) + negative_sign_check((float) operand2) + negative_sign_check(result);
 		case 'D':
-			return 11 + floor(log10(abs(zero_catch((float) operand1))) + 1) + floor(log10(abs(zero_catch((float) operand2))) + 1) + floor(log10(abs(zero_catch(result))) + 1) + ((int) (-copysign(0.5, operand1) + 0.5)) + ((int) (-copysign(0.5, operand2) + 0.5)) + ((int) (-copysign(0.5, result) + 0.5));
+			return 11 + floor(log10(abs(zero_catch((float) operand1))) + 1) + floor(log10(abs(zero_catch((float) operand2))) + 1) + floor(log10(abs(zero_catch(result))) + 1) + negative_sign_check((float) operand1) + negative_sign_check((float) operand2) + negative_sign_check(result);
 	}
 }
 
@@ -256,6 +256,15 @@ float zero_catch(float number)
 {
 	if (number == 0) return 1;
 	return number;
+}
+
+int negative_sign_check(float value)
+{
+	if (value >= 0) {
+		return 0;
+	} else {
+		return 1;
+	}
 }
 
 int print_result(int operand1, int operand2, char operator, float result)
