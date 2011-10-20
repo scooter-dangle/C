@@ -8,7 +8,7 @@ void InitializeBoard(char[ROWS][COLS]);
 void DisplayBoard(char[ROWS][COLS]);
 int PlayerMove(int, int, char[ROWS][COLS], char);
 int VictoryCheck(int, char[ROWS][COLS]);
-void DisplayVictoryMessage(int);
+int DisplayVictoryMessage(int);
 
 
 // Function Implementations
@@ -283,29 +283,29 @@ int VictoryCheck(int winRequirement, char board[ROWS][COLS]) {
 }
 
 
-void DisplayVictoryMessage(int victoryCode) {
+int DisplayVictoryMessage(int victoryCode) {
 	// display the victory condition results
 	switch(victoryCode) {
 		case NOWIN:
 			printf("There is still no winner.\n");
-			break;
+			return 1;
 		case MARKONEVICTORY:
-			printf("MARKONE has won the game.\n");
-			break;
+			printf("X has won the game!\n");
+			return 0;
 		case MARKTWOVICTORY:
-			printf("MARKTWO has won the game.\n");
-			break;
+			printf("O has won the game!\n");
+			return 0;
 		case TIE:
 			printf("The game is a draw.\n");
-			break;
+			return 0;
 		case ERROR:
-			printf("Something bad happened... MARKONE and MARKTWO have both won.\n");
-			break;
+			printf("Something bad happened... X and O have both won. :(\n");
+			return 0;
 		case EPIC_FAIL:
 			printf("Something bad happened... VictoryCheck() has produced an impossible\ncombination of return code indicators.\n");
-			break;
+			return 0;
 		default:
 			printf("DisplayVictoryMessage() was passed an invalid victoryCode.\n");
-			break;
+			return 0;
 	}
 }
