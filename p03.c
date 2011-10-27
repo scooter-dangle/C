@@ -7,8 +7,8 @@
 #define FALSE 0
 #endif
 
-#define ROWS 3
-#define COLS 3
+#define ROWS 4
+#define COLS 4
 #if ROWS < COLS
 #define MIN ROWS
 #endif
@@ -35,7 +35,7 @@
 #define EPIC_FAIL 5
 
 // Game Parameter Codes
-#define CONSECUTIVE_MARKS_REQUIRED 3
+#define CONSECUTIVE_MARKS_REQUIRED 4
 
 
 #include "a08.h"
