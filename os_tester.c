@@ -3,13 +3,13 @@
 #ifdef WIN32
 #define SYSTEM_CALL "dir /p"
 #else
-#define SYSTEM_CALL "ls -a"
+#define SYSTEM_CALL "ls -a | less"
 #endif
 
 
 int main(int argc, const char *argv[])
 {
-	printf(SYSTEM_CALL);
+	system(SYSTEM_CALL);
 
 	return 0;
 }
