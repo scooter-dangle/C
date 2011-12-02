@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 	//from stackoverflow:
 #ifdef WIN32
 #define SYSTEM_CALL "dir /p"
