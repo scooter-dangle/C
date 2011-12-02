@@ -51,10 +51,10 @@ int letterToNum(char letter) {
 }
 
 int EncryptString(char* encryptMe, int a, int b, int n) {
+	int i;
 	if (!CoprimeTest(a, n)) {
 		return FALSE;
 	}
-	int i;
 	for (i = 0; encryptMe[i] >= ASCII_OFFSET && encryptMe[i] < ASCII_OFFSET + ALPHABET_SIZE; i++) {
 		int number = letterToNum(encryptMe[i]);
 		number = ((number*a) + b) % n;
@@ -74,11 +74,11 @@ int EncryptString(char* encryptMe, int a, int b, int n) {
 
 
 int DecryptString(char* decryptMe, int a, int b, int n) {
+	int i;
+	int a_inv = ModularInverse(a, n);
 	if (!CoprimeTest(a, n)) {
 		return FALSE;
 	}
-	int i;
-	int a_inv = ModularInverse(a, n);
 	for (i = 0; decryptMe[i] >= ASCII_OFFSET && decryptMe[i] < ASCII_OFFSET + ALPHABET_SIZE; i++) {
 		int number = letterToNum(decryptMe[i]);
 		number = (a_inv * (number-b)) % n;
