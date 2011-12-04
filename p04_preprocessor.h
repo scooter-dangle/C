@@ -19,3 +19,10 @@
 #define INPUT_FILE "input.txt"
 #define OUTPUT_FILE "output.txt"
 #define ASCII_UPPER_LOWER_OFFSET 32
+
+	//from stackoverflow:
+#ifdef WIN32
+#define LIST_CURR_DIR_CONTENTS "dir /p"
+#else
+#define LIST_CURR_DIR_CONTENTS "ls -a | less"
+#endif

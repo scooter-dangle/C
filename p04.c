@@ -5,13 +5,6 @@
 #include "a11.h"
 
 
-	//from stackoverflow:
-#ifdef WIN32
-#define LIST_CURR_DIR_CONTENTS "dir /p"
-#else
-#define LIST_CURR_DIR_CONTENTS "ls -a | less"
-#endif
-
 
 void flush();
 
