@@ -1,14 +1,26 @@
 #include <stdio.h>
 
+#ifndef __TRUE_FALSE__
+#define __TRUE_FALSE__
+#define TRUE 1
+#define FALSE 0
+#endif
+
+#ifndef ASCII_OFFSET
+#define ASCII_OFFSET 97
+#endif
+
+#ifndef ALPHABET_SIZE
+#define ALPHABET_SIZE 26
+#endif
+
 // Prototypes
 char numToLetter(int);
 int letterToNum(char);
 int EncryptString(char*, int, int, int);
 int DecryptString(char*, int, int, int);
 int ModularInverse(int, int);
-int IsPrime(int);
 int CoprimeTest(int, int);
-
 
 // int main()
 // {
@@ -106,11 +118,6 @@ int ModularInverse(int target, int mod) {
 		}
 	}
 	return target;
-}
-
-
-int IsPrime(int amIPrime) {
-	return TRUE;
 }
 
 

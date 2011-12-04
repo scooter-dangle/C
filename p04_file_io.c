@@ -1,12 +1,24 @@
 #include <stdio.h>
 #include <string.h>
 
+#ifndef __TRUE_FALSE__
+#define __TRUE_FALSE__
+#define TRUE 1
+#define FALSE 0
+#endif
 
+#ifndef BUFFER_SIZE
+#define BUFFER_SIZE 10000
+#endif
 
+#ifndef ASCII_UPPER_LOWER_OFFSET
+#define ASCII_UPPER_LOWER_OFFSET 32
+#endif
+
+// Prototypes
 int ReadStringFromFile(char*, char*);
 int WriteStringToFile(char*, char*);
 int CleanString(char*);
-
 
 // int main(int argc, const char *argv[])
 // {
