@@ -15,6 +15,15 @@
 #define ASCII_UPPER_LOWER_OFFSET 32
 #endif
 
+//from stackoverflow:
+#ifndef LIST_CURR_DIR_CONTENTS
+#ifdef WIN32
+#define LIST_CURR_DIR_CONTENTS "dir /p"
+#else
+#define LIST_CURR_DIR_CONTENTS "ls -a | less"
+#endif
+#endif
+
 // Prototypes
 int ReadStringFromFile(char*, char*);
 int WriteStringToFile(char*, char*);
